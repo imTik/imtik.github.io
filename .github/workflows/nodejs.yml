@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@sourceCode
-
     - name: build and deploy
       uses: JamesIves/github-pages-deploy-action@master
       env:
