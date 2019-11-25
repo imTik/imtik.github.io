@@ -15,7 +15,7 @@ export default {
   computed: {
     ...mapGetters([
       'APP_ID',
-      'APP_NAME',
+      'APP_NAME', 
       'INSIDE_APP_NAME',
       'CORP_ID',
     ])
