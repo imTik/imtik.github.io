@@ -17,14 +17,11 @@ jobs:
     #     BRANCH: gh-pages
     #     FOLDER: build
     #     BUILD_SCRIPT: npm install && npm run build
-
-    - name: Build
-      run: npm i && npm run build
       
-    - name: Deploy
+    - name: Build and Deploy
       uses: JamesIves/github-pages-deploy-action@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: source
         FOLDER: build
-        # BUILD_SCRIPT: npm install && npm run build
+        BUILD_SCRIPT: npm install && npm run build
