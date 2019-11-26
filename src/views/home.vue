@@ -1,7 +1,7 @@
 <template>
   <div class="home-main">
 
-    <h1>Vue 项目模板</h1>
+    <h1>Vue 自动部署</h1>
     <global-loading mask="small" v-show="loading" />
 
   </div>
