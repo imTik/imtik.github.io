@@ -22,7 +22,7 @@ jobs:
       run: npm i && npm run build
       
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@source
+      uses: JamesIves/github-pages-deploy-action@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: source
