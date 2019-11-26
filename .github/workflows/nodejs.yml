@@ -8,10 +8,10 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@sourceCode
+      uses: actions/checkout@master
       
     - name: build and deploy
-      uses: JamesIves/github-pages-deploy-action@sourceCode
+      uses: JamesIves/github-pages-deploy-action@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: master
