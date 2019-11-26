@@ -9,11 +9,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: build
+      run: npm i && npm run build
       
-    - name: build and deploy
+    - name: deploy
       uses: JamesIves/github-pages-deploy-action@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: master
         FOLDER: build
-        BUILD_SCRIPT: npm install && npm run build
