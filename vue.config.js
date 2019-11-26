@@ -3,7 +3,7 @@ module.exports = {
   // 关闭eslint
   lintOnSave: false,
 
-  publicPath: '/', 
+  publicPath: '/',
   outputDir: process.env.outputDir,
 
   productionSourceMap: false,
