@@ -13,6 +13,6 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: source
+        BRANCH: master
         FOLDER: build
         BUILD_SCRIPT: npm install && npm run build
