@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@sourceCode
       
     - name: build and deploy
-      uses: JamesIves/github-pages-deploy-action@master
+      uses: JamesIves/github-pages-deploy-action@sourceCode
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: master
