@@ -1,128 +1,51 @@
 <template>
   <div class="home-main">
 
-    <h1>Vue 自动部署</h1>
+    <h1 data-dot="title_point">自动化构建</h1>
     <global-loading mask="small" v-show="loading" />
 
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { checkApi } from '../utils/WeChatUtil'
+import { mapGetters } from 'vuex';
+import { initSDK, getUserInfo } from '@/utils/WX_FN';
+import { getUrlParams } from '../utils/publicFn';
+
 export default {
   name: 'home',
   computed: {
     ...mapGetters([
-      'APP_ID',
-      'APP_NAME', 
       'INSIDE_APP_NAME',
-      'CORP_ID',
     ])
   },
   data () {
     return {
       loading: false,
       wifiLists: [],
+      features: null,
     }
   },
-  created () {
+  async created () {
 
-    localStorage.clear();
-    this.initSDK();
+    try {
+
+      const apiList = ['startWifi']; // 具体参考企业微信API
+      const corpId = getUrlParams('state');
+      initSDK(this.INSIDE_APP_NAME, corpId, apiList); // 注册SDK
+
+      let { result } = await getUserInfo(this.INSIDE_APP_NAME); // 获取用户信息
+      if (!result) throw('用户信息获取失败');
+      this.$store.commit('SAVE_USER_INFO', result);
+      this.$store.commit('SAVE_TOKEN', result.token);
+
+    }
+    catch (e) {
+      this.errHandler(e);
+    }
 
   },
-  methods: {
-
-    // 初始化企业微信SDK
-    initSDK () {
-      let _this = this;
-      let params = {
-        appName: this.APP_NAME,
-        format: "",
-        param: {
-          appName: this.APP_NAME,
-          type: 0,
-          url: this.getUrlNoHash(),
-        },
-        version: ""
-      };
-
-      this.$http.getSignatureByApp(params).then(res => {
-        if (res && res.result) {
-          wx.config({
-            beta: true,
-            debug: false,
-            appId: this.CORP_ID, // 必填，企业微信的corpID
-            timestamp: res.result.timestamp,
-            nonceStr: res.result.noncestr,
-            signature: res.result.signature,
-            jsApiList: [
-              'startWifi',
-            ]
-          });
-
-          wx.ready(function () {
-
-            // 初始化wifi
-            checkApi('startWifi', wx, {
-              success: function (res) {
-                console.log('初始化wifi模块 ', res);
-
-              },
-              fail: function (err) {
-                console.log('初始化失败', err);
-              }
-            });
-
-          });
-        };
-      });
-      
-    },
-
-    getUrlNoHash() {
-      var href = window.location.href;
-      var hash = window.location.hash;
-      if (!hash) {
-        return href;
-      } else if (href) {
-        return href.substr(0, href.length - hash.length);
-      }
-      return null;
-    },
-    
-    // 获取用户与门店信息
-    getUserInfo () {
-      this.loading = true;
-      let code = this.getUrlParams('code');
-      let params = {
-        appName: this.APP_NAME,
-        format: "json",
-        param: {
-          appName: this.INSIDE_APP_NAME,
-          code: code,
-          dept: true
-        },
-        sign: "",
-        source: "",
-        timestamp: "",
-        version: ""
-      };
-
-      this.$http.getUserInfoByCode(params)
-      .then(res => {
-        // 用户信息
-        // console.log('获取用户信息', res.result);
-        if (res && res.result) {
-
-          this.$store.commit('SAVE_USER_INFO', res.result);
-
-        };
-      });
-    },
-
-  }
+  methods: {}
 }
 </script>
 
@@ -130,6 +53,6 @@ export default {
 .home-main {
   padding-top: 20px;
   text-align: center;
-  font-size: @super;
+  font-size: @xl;
 }
 </style>

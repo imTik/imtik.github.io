@@ -1,9 +1,7 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import API from './api/API'
-import directive from './utils/directive'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router/router';
+import store from './store/store';
 
 // ui框架引入
 import { 
@@ -19,8 +17,6 @@ import {
   Uploader,
   DropdownMenu, 
   DropdownItem,
-  SwipeCell,
-  ImagePreview
 } from 'vant'
 import 'vant/lib/index.css'
 Vue
@@ -35,33 +31,38 @@ Vue
 .use(Radio)
 .use(Uploader)
 .use(DropdownMenu)
-.use(DropdownItem)
-.use(SwipeCell)
-.use(ImagePreview);
+.use(DropdownItem);
 
 Vue.config.productionTip = false;
+
+import API from './api/API';
 Vue.prototype.$http = API;
 
 // 全局组件
-import globalComponent from './utils/components'
+import globalComponent from './utils/components';
 Vue.use(globalComponent);
 
-// 全局指令
-for(let i in directive) {
-  Vue.directive(i, directive[i]);
-}
-
-// mixin
+// 全局混入
 import mixin from './utils/mixin'
 Vue.mixin(mixin);
 
 import i18n from './i18n'
-document.title = i18n.t('pageTitle');
+// document.title = i18n.t('pageTitle');
 
 import vConsole from 'vconsole'
-if (process.env.VUE_APP_HOST !== 'prod') {
-  const vconsole = new vConsole();
-}
+if (process.env.VUE_APP_HOST !== 'prod') new vConsole();
+
+// 埋点使用方法
+import BuriedDot from './utils/buriedDot';
+BuriedDot(router, (mark, buriedData) => {
+  console.log('触发埋点的标记: ', mark)
+  console.log('获取到的埋点信息: ', buriedData);
+}, 60000);
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
+});
 
 new Vue({
   router,

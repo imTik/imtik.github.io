@@ -3,7 +3,7 @@ module.exports = {
   // 关闭eslint
   lintOnSave: false,
 
-  publicPath: '/', 
+  publicPath: '/you_project_name',
   outputDir: process.env.outputDir,
 
   productionSourceMap: false,
@@ -42,7 +42,7 @@ module.exports = {
     i18n: {
       locale: 'en',
       fallbackLocale: 'en',
-      localeDir: 'locales',
+      localeDir: 'language',
       enableInSFC: false
     }
   }

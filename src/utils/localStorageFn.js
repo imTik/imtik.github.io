@@ -1,27 +1,11 @@
-const FN = {
-
-  // 获取localStorage数据
-  getLocalData: function (key) {
-    let _detail = JSON.parse(localStorage.getItem(key));
-    return _detail;
+const LOCAL = {
+  get: function (key) {
+    return JSON.parse(localStorage.getItem(key));
   },
 
-  // 保存用户信息
-  saveUserInfo: function (data) {
-    localStorage.setItem('USER_INFO', JSON.stringify(data));
+  set: function (key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
   },
-
-  // 保存batchNumber
-  saveBatchNumber: function (number) {
-    localStorage.setItem('BATCH_NUMBER', number);
-  },
-
-  getBatchNumber: function () {
-    let _num = '';
-    if (localStorage.getItem('BATCH_NUMBER') !== 'undefined') _num = localStorage.getItem('BATCH_NUMBER');
-    return _num;
-  }
-
 }
 
-export default FN;
+export default LOCAL;

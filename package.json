@@ -1,18 +1,19 @@
 {
-  "name": "tourroadmap-front",
-  "version": "0.1.0",
+  "name": "your-app-name",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "qa": "vue-cli-service build --mode qa",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/language/**/*.json'",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "js-base64": "^2.5.2",
     "vant": "^2.2.6",
     "vconsole": "^3.3.4",
     "vue": "^2.6.10",
