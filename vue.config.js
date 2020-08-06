@@ -4,7 +4,7 @@ module.exports = {
   lintOnSave: false,
 
   publicPath: '/you_project_name',
-  outputDir: process.env.outputDir,
+  // outputDir: process.env.outputDir,
 
   productionSourceMap: false,
 
